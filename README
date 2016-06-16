@@ -1,0 +1,22 @@
+Archivos fuentes para la tesis "Cálculo de grados de libertad en modelos de proteínas y entramados: análisis de dos algoritmos: PG y VPG"
+
+La información se provee bajo la licencia Creative COmmmons sa-by-nc 4.0 para los archivos de Latex y el código bajo la licencia GPLv3.
+
+= Estructura =
+Los programas se encuentran escritos en C++ y python y se encuentran en la carpeta VPG.
+
+Los datos en formato CSV se encuentran en la carpet de datos.
+
+Tesis contiene los archivos Latex e imagenes para compilar la tesis completa.
+
+= Dependencias =
+* Latex y PDFLatex
+
+* CMake
+* Compilador C++
+* Python3
+* CATCH: https://github.com/philsquared/Catch
+* Eigen: http://eigen.tuxfamily.org/index.php?title=Main_Page
+
+= Contacto =
+Correo electrónico: cl@carloslicea.com

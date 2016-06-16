@@ -1,0 +1,37 @@
+En esta sección se discuten múltiples técnicas que se pueden explorar para mejorar el desempeño de los algoritmos en un futuro.
+
+\section{Manejo eficiente de multi-rutas} \label{multi-rutas}
+En el capítulo \ref{metodologia} se describe las 2 razones por las que es necesario hacer múltiples pasadas en la búsqueda de \emph{pebbles} para identificar los clúster rígidos:
+
+\begin{enumerate}
+	\item Por reemplazo de rutas.
+	\item Por saturación de enlaces.
+\end{enumerate}
+
+Ambas se pueden resolver si se manejara múltiples rutas de manera eficiente en la misma búsqueda en vez de reemplazarlas mientras se da la búsqueda en amplitud. 
+
+El problema en la actualidad es que dado que se reemplazan las rutas alternas para un nodo candidato, no hay manera de intentar por otra ruta si la única que queda se satura; y, por tanto, no hay manera de intentar hacer llegar los \emph{pebbles} por otra ruta en esa ejecución por lo que se debe intentar de nuevo desde el principio.
+
+El problema se puede solucionar si se cambia la forma en que se mantienen las posibles rutas entre todos los nodos candidatos, agregando nuevas rutas posibles pero sin reemplazar las múltiples rutas a los nodos entrantes ya conocidas. De esta manera se considerarían las rutas locales más eficientemente sin tener que reiniciar la búsqueda a cada momento.
+
+La dificultad consistiría en saber cuándo cómo regresar los \emph{pebbles} cuándo se comprueba que la ruta actual no sirve e intentar otra. A grandes rasgos lo que se debe hacer es una búsqueda en profundidad que si falla se debe marca cómo fallida y se regresan los \emph{pebbles} a un nodo anterior y así hasta recorrer exhaustivamente todas las rutas posibles.
+
+Aunque requiere una implementación delicada (y que no mueva innecesariamente los \emph{pebbles} una y otra vez puesto que sería peor) no es imposible.
+
+\section{Paralelización}
+Si bien el problema se ha descrito como extraordinariamente no local podría aún así intentar paralelizarse. Cómo se describe en el capítulo \ref{marco}, VPG tiene una enorme ventaja: no importa el orden en que se agreguen los enlaces siempre y cuando todos los vértices de la red se visiten cuándo se require obtener \emph{pebbles}.
+
+La más fácil de intentar implementar un VPG paralelo, sería simplemente mantener una serie de mútexes que bloquearan el acceso a los distintos nodos que cada uno de los trabajadores que están intentando calcular la red. Si los trabajadores se encuentran en partes suficientemente alejadas de la red podría pasar mucho tiempo antes de que intenten utilizar el mismo nodo y por tanto buena parte de la red podría hacerse en paralelo.
+
+La dificultad sería encontrar buenos puntos iniciales para los trabajadores coordinados y mantener el costo de los mútexes lo suficientemente bajo para que el costo de la sincronización no sea más alto que hacerlo en un sólo hilo de ejecución.
+
+Sin embargo si la red está demasiado interconectada la contención de los mutex podría ser más costosa que lo ganado por el paralelizmo. Una alternativa sería simplemente marcar como fallidos los enlaces en los que los trabajadores tengan conflicto y agregarlos a una lista que después hará un trabajador único que no requiera coordinación. Esto permitiría eliminar la contención y solucionar la red entera después. Desafortunadamente si esto ocurre con frecuencia todo el trabajo que existe dentro de la red para mover los \emph{pebbles} y dejarlos listos para hacer el enlace podría desperdiciarse una y otra vez.
+
+Otra alternativa sería intentar crear listas de enlaces que junten nodos lo más aislados entre sí que se pueda, con el fin de eliminar la carga de coordinación entre los trabajadores y después unir los diferentes puntos de la red en un sólo hilo final. 
+
+La diferencia entre los dos enfoques discutidos es que en el primero se asume de manera optimista que no habría demasiados conflictos y se dejaría su resolución de lado mientras que en la segunda se intenta garantizar mediante algún algoritmo extra. Que, claro está, debe ser lo suficientemente rápido para no consumir todas las ganancias de la resolución en paralelo.
+
+\section{Precómputo de aminoácidos}
+Si bien en la resolución de redes cristalinas arbitrarias estas presentan poca regularidad, no es el caso cuándo se intenta resolver una proteína. Es decir, es bien sabido que los bloques que componen las proteínas son aminoácidos ya establecidos y no una lista arbitraria de átomos y enlaces. Sino, más bien, una lista específica de aminoácidos posibles.
+
+Además, dado que, recordemos, el VPG no requiere un orden específico para agregar los enlaces. Esto sugiere que se podría hacer una lista que incluya todos los aminoácidos que se van a analizar y resolver su estructura interna independendientemente. Guardar los resultados y luego utilizarlos para construir la proteína final más adelante. Simplemente resolviendo los enlaces que unen los aminoácidos entre sí y no todos los átomos una y otra vez.

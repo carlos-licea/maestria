@@ -1,0 +1,77 @@
+Las proteínas son la maquinaria que hace funcionar a la célula en su totalidad. Las células expresan las proteínas según su código genético y estas a su vez llavan a cabo todas las funcionas biológicas. Respiración, reparación y reproducción, todas son llevadas a cabo según las proteínas creadas por la célula. Por esta razón es muy importante comprender cómo es que las proteínas interactúan con los diferentes mecanismos celulares y cómo llevan a cabo sus procesos.
+
+Es bien sabido que la forma en que se plega una proteína es la que le confiere el uso biológico dentro de una célula. Éste plegado está definido por la rigidez de cada una de las áreas e influenciado por el medio en que ocurre el proceso. Dentro de los diferentes métodos que existen para inferir esta rigidez se encuentran el de conteo de restricciones.
+
+Así, en el presente trabajo se presenta la reimplementación de los algoritmos de conteo de restricciones PG y VPG para análisis de rigidez de cuerpos en general y de proteínas específicamente. 
+
+Además la reimplementación de los algoritmos se hará de una manera que se pueda reutilizar el código para que sirva de base para futuros trabajos, haciéndolo lo más eficiente y claro posible. Por último se comparan sus resultados y complejidad. Al final, éste trabajo permitiría agilizar los cálculos y solamente realizar aquellos para los que la tolerancia a la incertidumbre sea menor.
+
+En el capítulo primero se introduce el trabajo en sí y además se plantean todo el marco de la tesis: el problema a atacar, los antecedentes, la justificación para emprenderlo, los objetivos y las hipótesis que sirve de ancla a la tesis.
+
+En el capítulo segundo se introduce al lector al marco teórico y la teoría de grafos que respalda el uso de estas técnicas para el modelado de redes. Se explican todos los conceptos que se requieren para el completo entendimiento de la tesis. Se describen las diferentes técnicas para la comprensión de proteínas, tanto de laboratorio como analíticas y sus diferentes fortalezas y debilidades.
+
+El capítulo tercero describe la metodología. Es decir, se detallan los algoritmos centrales a la tesis: el PG y el VPG y sus diferencias, además de presentar ejemplos correctos de su aplicación.
+
+El capítulo cuarto presenta los experimentos y resultados obtenidos al implementar la metodología para la resolución de las hipótesis planteadas.
+
+El capítulo quinto presenta discusiones sobre trabajos futuros.
+
+El capítulo sexto cierra la tesis presentando las conclusiones finales de haber desarrollado el trabajo.
+
+Los últimos dos capítulos presentan la bibliografía y figuras anexas así como los datos crudos y un vínculo al código desarrollado. 
+
+\section{Antecedentes}
+Muchas de las propiedades microscópicas de los cuerpos se pueden entender en función de la estructura microscópica\parencite{Jacobs97analgorithm} de los materiales. Trabajos previos en física computacional han demostrado la fiabilidad de modelar las estructuras de los compuestos mediante su estabilidad termodinámica. Específicamente en proteínas, hace décadas que se conoce que las regiones de flexibilidad de la proteína es lo que vincula su estructura con su función biológica\parencite{Gerstein1994}.
+Aprovechando esto, múltiples técnicas han surgido para intentar predecir la flexibilidad en los diferentes radicales que conforman una proteína. Desde cristalografía con técnicas exploratorias en laboratorio hasta trabajos en biología computacional que permite la predicción únicamente mediante su composición (llamadas técnicas \emph{ab initio}).
+
+Dentro de los métodos ab initio, es decir los que se dedican a inferir la flexibilidad únicamente mediante la descripción de los átomos en una proteína, se encuentra el Pebble Game (PB)\parencite{Jacobs97analgorithm}. Este representa los grados de libertad de las moléculas mediante guijarros que se consumen para mantener la estructura. Sin embargo, dada la naturaleza estadística de la mecánica cuántica y la termodinámica, específicamente que las interacciones de enlaces no covalentes se rompen y se vuelven a generar según el contexto térmico de la proteína, se requiere de múltiples ejecuciones para obtener un resultado que modele adecuadamente el comportamiento esperado.
+
+Para paliar este costo computacional surge una aproximación de campo medio, es el conocido como Virtual Pebble Game (VPG)\parencite{Gonzalez2011} que reemplaza el costo de cada enlace por el costo esperado de cada enlace. Debido a esto puede ser que tenga un costo fraccionario, de ahí el nombre de guijarros virtuales.
+
+Éste método, VPG, dada la flexibilidad de los guijarros virtuales, nos da resultados que aproximan muy adecuadamente a los obtenidos por PG sin necesidad de hacer los cálculos cientos de veces \parencite{Gonzalez2011}. Permitiendo además hacer simplificaciones a los cálculos aún más. 
+
+Sin embargo, rápidamente se encontró que existen redes que por su caracterización hacen que la diferencia entre las predicciones de los algoritmos VPG y PG sean muy grandes y que, de hecho, la única forma de obtener la precisión del algoritmo PG es utilizándolo\parencite{Gonzalez2011}. El problema surge en que el algoritmo VPG es una aproximación y no un reemplazo al algoritmo PG y en ciertas circunstancias específicas la discrepancia entre uno y otro es muy considerable. Haciendo que  la única manera de obtener los resultados de PG es utilizando PG y no su aproximación.
+
+Con la idea de mezclar los dos enfoques de PG --costo exaacto-- y VPG --costo medio--,  nace el algoritmo de VPG-x\parencite{Gonzalez2011} en el que un porcentaje x de los enlaces más significativos (los puentes de hidrógeno) se muestrearán mientras que para el resto se seguirá utilizando con la media. Esto nos permite reducir el margen de error en VPG y PG con un muestreo alrededor de 20 veces menor.
+Para definir qué tanto se acerca las predicciones de ambos sistemas, se han intentado diferentes enfoques, en la propia tesis donde se presentó el algoritmo se introdujo un índice de heterogeneidad\parencite{Gonzalez2011}. Sin embargo no se logró una buena correlación. Después, haciendo uso de machine learning, una pequeña incursión se dio con programación genética\parencite{Chacon2014}, obteniendo resultados mixtos: por una parte se consiguió una correlación significativa con alrededor de 0.91 de explicación de la varianza pero el árbol obtenido es muy complejo y no se presta a obtener alguna relación apreciable analíticamente. Además de que se limitó a intentar predecir solamente la diferencia entre las predicciones de los grados de libertad. Dejándose de lado otras comparativas.
+
+\section{Situación actual}
+Desde la presentación del algoritmo VPG y sus variantes no ha habido ningún avance significativo con respecto a su caracterización. No se han presentado nuevas implementaciones, nuevos índices de heterogeneidad ni intentos para reducir la diferencia de predicción entre uno y otro, a pesar de que múltiples enfoques fueron aludidos en la propia tesis que convendría intentar. Por otra parte existen múltiples estrategias en la implementación de de mejorar aún más el desempeño con respecto a una implementación ingenua.
+
+\section{Problema de investigación}
+Actualmente el desconocimiento en muchos de los casos del comportamiento del algoritmo VPG-x no permite garantizar una adecuada aproximación minimizando la complejidad del algoritmo. El desconocimiento de opciones eficientes conlleva a una ralentización en la caracterización del comportamiento de las moléculas en general y a las proteínas en particular.  Esto causa un retraso en la investigación de nuevos compuestos y nuevas drogas para tratar los diferentes enfermedades o desórdenes metabólicos.
+
+\subsection*{Preguntas de investigación}
+Las preguntas de investigación se pueden plantear de la siguiente manera:
+\begin{enumerate}
+	\item ¿Se puede mejorar el tiempo de ejecución del algoritmo solamente mediante una aproximación?
+	\item ¿Qué tanto intercambio entre aproximación y precisión se tiene cuando se aproxima el algoritmo PG mediante VPG?
+	\item ¿Qué tanta diferencia en rapidez o uso de memoria hace una implementación que se aprovecha de las particularidades del problema sobre una que es ingenua y solamente considera un caso general?
+\end{enumerate}
+
+\section{Justificación}
+La culminación de esta tesis permitirá contrastar las diferencias de comportamiento en tiempo y memoria entre PG y VPG. Además de encontrar un método rápido que nos permita obtener análisis ya sean de redes o de proteínas con la fidelidad adecuada sin gastar más tiempo del necesario.
+
+Además, con este trabajo se obtendrá una mejor caracterización del algoritmo VPG que permita combinar las ventajas de los métodos de ensambles y el de campo medio.
+
+\section{Delimitación}
+El estudio se realizará únicamente utilizando como muestras las redes cristalinas que serán generados por un programa creado para este proceso. Se usará solamente el lenguaje de programación C++ y Python en los casos que se requiera un lenguaje adicional.
+
+Se realizará en las instalaciones de la UACH con el apoyo del Doctor Luis Carlos González Gurrola y sin colaboraciones externas.
+
+\section{Objetivo general}
+Implementar y comprender los algoritmos de análisis de rigidez para entender los intercambios entre tiempo de ejecución, uso de memoria y exactitud del resultado final.
+
+\section{Objetivos específicos}
+\begin{enumerate}
+  \item Implementar correctamente PG y VPG.
+  \item Implementar los algoritmos eficientemente en memoria y tiempo.
+  \item Comparar las implementaciones optimizadas contra implementaciones ingenuas.
+\end{enumerate}
+
+\section{Hipótesis}
+\begin{enumerate}
+	\item Se puede mejorar el tiempo de ejecución de un algoritmo solamente mediante la mejora de la representación del problema
+	\item Las representaciones de campo medio son suficientes para aproximar en la mayoría de los casos las representaciones exactas
+	\item El almacenar información calculada compleja en el modelo permite simplificar la resolución de problemas
+\end{enumerate}

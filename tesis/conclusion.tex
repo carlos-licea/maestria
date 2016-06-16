@@ -1,0 +1,34 @@
+En el presente trabajo se presenta una clara y profunda explicación de cómo es que funcionan los algoritmos PG y VPG paso a paso. Se clarifican los conceptos y con ello se logra una mejor abstracción en su implementación. Esto permite considerar los procedimientos cómo una entidad separada del resto del algoritmo y comprender cómo es que funciona en sus partes fundamentales. Este ejercicio provee la percepción y la intuición que ayuda a visualizar mejoras que son simplemente invisibles si se intenta considerar todo el ámbito del algoritmo en todo momento.
+
+Es fácil ver cómo se cumple entonces el objetivo general con el que se fundamentó el trabajo: se ha implementado un algoritmo más fácil de comprender que permite visualizar los intercambios que se hacen entre costo computacional, costo de memoria y la exactitud de la respuesta final. 
+
+La exploración hecha del algoritmo provee explicaciones detalladas de por qué es que se comporta de una u otra manera. Permite identificar y nombrar problemas o comportamientos emergentes que restringen su eficiencia. Y conocer lo que se enfrenta es el primer paso para buscar una resolución.
+
+También se han cumplido los objetivos específicos. Ya que que se han identificado y documentado diferentes técnicas para asegurar que la implementación del algoritmo sea correcta. Ya se han discutido en el capítulo \ref{metodologia}, pero por mencionar algunas:
+
+\begin{enumerate}
+	\item Asegurar que los grados de libertad disponibles en la red sean invariantes antes y después del colapso.
+	\item Asegurar que en todo momento el algoritmo PG sirva de cota superior al resultado de grados de libertad media del algoritmo VPG.
+\end{enumerate}
+
+Además de detallar mejores prácticas para hacerlo eficiente cómo se demostró en el capítulo \ref{resultados}:
+
+\begin{enumerate}
+	\item Utilizar una representación matricial dispersa para mantener la cantidad de \emph{pebbles} que forman los enlaces entre los vértices.
+	\item Cambiar la representación de la red al colapsar una región rígida en lugar de cambiar los enlaces mismos.
+\end{enumerate}
+
+Y demostrar los efectos dramáticos que estos tienen sobre el algoritmo:
+
+\begin{enumerate}
+	\item Una mejora de entre 3 y 10 veces en tiempo de ejecución con una implementación que tiene colapso a comparación de una en la que no se implementa,
+	\item Una mejora de 10 y hasta miles de veces en el consumo de memoria al utilizar matrices dispersas sobre una matriz ingenua.
+\end{enumerate}
+
+Dadas las explicaciones anteriores es fácil responder las preguntas de investigación: sí es posible mejorar el tiempo de ejecución de un algoritmo al aproximarlo, aún uno que tiene un comportamiento tan no local cómo lo es el VPG. El intercambio que se hace entre precisión y rapidez al cambiar el algoritmo VPG y PG es importante obteniendo una mejora de entre 10 y 20 veces según las características inherentes de la red. Pero uno que es aceptable según el contexto y mientras se esté fuera de la región de transición. Y, por último, se proponen técnicas para mejorar aún más la precisión sin incurrir en demasiado costo computacional.
+
+Por último es igual de justificable aceptar las hipótesis planteadas: el algoritmo de campo medio sirve para aproximar significativamente un algoritmo de ensamble; las representaciones seleccionadas permiten aproximar en la mayoría de los casos con suficiente exactitud los algoritmos de ensamble; y, por último, almacenar información calculada permite simplificar la resolución de problemas significativamente.
+
+Con esto se cumplen todos los objetivos que se pretendían cubrir, se responden las preguntas planteadas, se aceptan las hipótesis, se explican todos los puntos que a clarificar de los algoritmos y, por tanto, esperando que sirva de base para un mejor entendimiento en la rigidez de los cuerpos y el funcionamiento de las proteínas en el funcionamiento celular, se da por terminado el trabajo actual de manera satisfactoria. 
+
+{ \huge \hfill $\thicksim$ \hfill }

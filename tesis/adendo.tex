@@ -1,0 +1,617 @@
+\section{Código}
+\section{Datos crudos}
+\section{Comparativas}
+\pgfplotsset{every axis legend/.append style={draw=none}}
+\pgfplotsset{width=7cm}
+\begin{figure}
+	\captionsetup[subfigure]{justification=centering, belowskip=3mm}
+	\begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymin=0, xlabel = P, ylabel = F/N]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{vpg}] {csv/dof/5-0-4.csv};
+		  \addlegendentry{vpg}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{pg}] {csv/dof/5-0-4.csv};
+		  \addlegendentry{pg}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.0, q_{fluct}=0.4$.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymin=0, xlabel = P, ylabel = F/N]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{vpg}] {csv/dof/5-1-4.csv};
+		  \addlegendentry{vpg}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{pg}] {csv/dof/5-1-4.csv};
+		  \addlegendentry{pg}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.1, q_{fluct}=0.4$.}
+  \end{subfigure}
+
+	\begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymin=0, xlabel = P, ylabel = F/N]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{vpg}] {csv/dof/5-2-3.csv};
+		  \addlegendentry{vpg}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{pg}] {csv/dof/5-2-3.csv};
+		  \addlegendentry{pg}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.2, q_{fluct}=0.3$.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymin=0, xlabel = P, ylabel = F/N]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{vpg}] {csv/dof/5-3-3.csv};
+		  \addlegendentry{vpg}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{pg}] {csv/dof/5-3-3.csv};
+		  \addlegendentry{pg}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.3, q_{fluct}=0.3$.}
+  \end{subfigure}
+
+	\begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymin=0, xlabel = P, ylabel = F/N]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{vpg}] {csv/dof/5-4-2.csv};
+		  \addlegendentry{vpg}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{pg}] {csv/dof/5-4-2.csv};
+		  \addlegendentry{pg}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.4, q_{fluct}=0.2$.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymin=0, xlabel = P, ylabel = F/N]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{vpg}] {csv/dof/5-4-3.csv};
+		  \addlegendentry{vpg}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{pg}] {csv/dof/5-4-3.csv};
+		  \addlegendentry{pg}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.4, q_{fluct}=0.3$.}
+  \end{subfigure}
+  \caption{Ejemplos para grados de libertad medio de una red con $l = 5$.}
+\end{figure}
+
+\begin{figure}
+	\begin{subfigure}{0.45\textwidth}
+	\captionsetup[subfigure]{justification=centering, belowskip=3mm}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymin=0, xlabel = P, ylabel = F/N]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{vpg}] {csv/dof/10-0-4.csv};
+		  \addlegendentry{vpg}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{pg}] {csv/dof/10-0-4.csv};
+		  \addlegendentry{pg}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.0, q_{fluct}=0.4$.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymin=0, xlabel = P, ylabel = F/N]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{vpg}] {csv/dof/10-1-4.csv};
+		  \addlegendentry{vpg}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{pg}] {csv/dof/10-1-4.csv};
+		  \addlegendentry{pg}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.1, q_{fluct}=0.4$.}
+  \end{subfigure}
+
+	\begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymin=0, xlabel = P, ylabel = F/N]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{vpg}] {csv/dof/10-2-3.csv};
+		  \addlegendentry{vpg}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{pg}] {csv/dof/10-2-3.csv};
+		  \addlegendentry{pg}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.2, q_{fluct}=0.3$.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymin=0, xlabel = P, ylabel = F/N]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{vpg}] {csv/dof/10-3-3.csv};
+		  \addlegendentry{vpg}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{pg}] {csv/dof/10-3-3.csv};
+		  \addlegendentry{pg}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.3, q_{fluct}=0.3$.}
+  \end{subfigure}
+
+	\begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymin=0, xlabel = P, ylabel = F/N]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{vpg}] {csv/dof/10-4-2.csv};
+		  \addlegendentry{vpg}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{pg}] {csv/dof/10-4-2.csv};
+		  \addlegendentry{pg}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.4, q_{fluct}=0.2$.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymin=0, xlabel = P, ylabel = F/N]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{vpg}] {csv/dof/10-4-3.csv};
+		  \addlegendentry{vpg}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{pg}] {csv/dof/10-4-3.csv};
+		  \addlegendentry{pg}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.4, q_{fluct}=0.3$.}
+  \end{subfigure}
+  \caption{Ejemplos para grados de libertad medio de una red con $l = 10$.}
+\end{figure}
+
+\begin{figure}
+	\captionsetup[subfigure]{justification=centering, belowskip=3mm}
+	\begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymin=0, xlabel = P, ylabel = F/N]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{vpg}] {csv/dof/20-0-4.csv};
+		  \addlegendentry{vpg}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{pg}] {csv/dof/20-0-4.csv};
+		  \addlegendentry{pg}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.0, q_{fluct}=0.4$.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymin=0, xlabel = P, ylabel = F/N]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{vpg}] {csv/dof/20-1-4.csv};
+		  \addlegendentry{vpg}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{pg}] {csv/dof/20-1-4.csv};
+		  \addlegendentry{pg}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.1, q_{fluct}=0.4$.}
+  \end{subfigure}
+
+	\begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymin=0, xlabel = P, ylabel = F/N]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{vpg}] {csv/dof/20-2-3.csv};
+		  \addlegendentry{vpg}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{pg}] {csv/dof/20-2-3.csv};
+		  \addlegendentry{pg}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.2, q_{fluct}=0.3$.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymin=0, xlabel = P, ylabel = F/N]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{vpg}] {csv/dof/20-3-3.csv};
+		  \addlegendentry{vpg}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{pg}] {csv/dof/20-3-3.csv};
+		  \addlegendentry{pg}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.3, q_{fluct}=0.3$.}
+  \end{subfigure}
+
+	\begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymin=0, xlabel = P, ylabel = F/N]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{vpg}] {csv/dof/20-4-2.csv};
+		  \addlegendentry{vpg}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{pg}] {csv/dof/20-4-2.csv};
+		  \addlegendentry{pg}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.4, q_{fluct}=0.2$.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymin=0, xlabel = P, ylabel = F/N]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{vpg}] {csv/dof/20-4-3.csv};
+		  \addlegendentry{vpg}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{pg}] {csv/dof/20-4-3.csv};
+		  \addlegendentry{pg}
+	  \end{axis}
+  \end{tikzpicture}
+  \centering
+  \caption{$q_{fix}=0.4, q_{fluct}=0.3$.}
+  \end{subfigure}
+  \caption{Ejemplos para grados de libertad medio de una red con $l = 20$.}
+\end{figure}
+
+% tiempo
+\pgfplotsset{width=6.5cm}
+\begin{figure}
+	\captionsetup[subfigure]{justification=centering, belowskip=3mm}
+	\begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymode = log, xlabel = P, ylabel = msec, legend pos=north west]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{vpg}] {csv/dof/5-0-4.csv};
+		  \addlegendentry{vpg}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{pg}] {csv/dof/5-0-4.csv};
+		  \addlegendentry{pg}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.0, q_{fluct}=0.4$.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymode = log, xlabel = P, ylabel = msec, legend pos = north west]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{vpg}] {csv/dof/5-1-4.csv};
+		  \addlegendentry{vpg}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{pg}] {csv/dof/5-1-4.csv};
+		  \addlegendentry{pg}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.1, q_{fluct}=0.4$.}
+  \end{subfigure}
+
+	\begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymode = log, xlabel = P, ylabel = msec, legend pos = south east]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{vpg}] {csv/dof/5-2-3.csv};
+		  \addlegendentry{vpg}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{pg}] {csv/dof/5-2-3.csv};
+		  \addlegendentry{pg}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.2, q_{fluct}=0.3$.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymode = log, xlabel = P, ylabel = msec, legend style={at={(0.97,0.5)} ,anchor=east}]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{vpg}] {csv/dof/5-3-3.csv};
+		  \addlegendentry{vpg}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{pg}] {csv/dof/5-3-3.csv};
+		  \addlegendentry{pg}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.3, q_{fluct}=0.3$.}
+  \end{subfigure}
+
+	\begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymode = log, xlabel = P, ylabel = msec, legend style={at={(0.97,0.5)} ,anchor=east}]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{vpg}] {csv/dof/5-4-2.csv};
+		  \addlegendentry{vpg}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{pg}] {csv/dof/5-4-2.csv};
+		  \addlegendentry{pg}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.4, q_{fluct}=0.2$.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymode = log, xlabel = P, ylabel = msec, legend style={at={(0.97,0.5)} ,anchor=east}]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{vpg}] {csv/dof/5-4-3.csv};
+		  \addlegendentry{vpg}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{pg}] {csv/dof/5-4-3.csv};
+		  \addlegendentry{pg}
+	  \end{axis}
+  \end{tikzpicture}
+  \centering
+  \caption{$q_{fix}=0.4, q_{fluct}=0.3$.}
+  \end{subfigure}
+  \caption{Ejemplos para tiempo de proceso de una red con $l = 5$.}
+\end{figure}
+
+\begin{figure}
+	\captionsetup[subfigure]{justification=centering, belowskip=3mm}
+	\begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymode = log, xlabel = P, ylabel = msec, legend pos = north west]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{vpg}] {csv/dof/10-0-4.csv};
+		  \addlegendentry{vpg}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{pg}] {csv/dof/10-0-4.csv};
+		  \addlegendentry{pg}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.0, q_{fluct}=0.4$.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymode = log, xlabel = P, ylabel = msec, legend pos = north west]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{vpg}] {csv/dof/10-1-4.csv};
+		  \addlegendentry{vpg}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{pg}] {csv/dof/10-1-4.csv};
+		  \addlegendentry{pg}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.1, q_{fluct}=0.4$.}
+  \end{subfigure}
+
+	\begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymode = log, xlabel = P, ylabel = msec, legend pos = north west]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{vpg}] {csv/dof/10-2-3.csv};
+		  \addlegendentry{vpg}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{pg}] {csv/dof/10-2-3.csv};
+		  \addlegendentry{pg}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.2, q_{fluct}=0.3$.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymode = log, xlabel = P, ylabel = msec, legend style={at={(0.97,0.5)} ,anchor=east}]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{vpg}] {csv/dof/10-3-3.csv};
+		  \addlegendentry{vpg}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{pg}] {csv/dof/10-3-3.csv};
+		  \addlegendentry{pg}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.3, q_{fluct}=0.3$.}
+  \end{subfigure}
+
+	\begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymode = log, xlabel = P, ylabel = msec, legend style={at={(0.97,0.5)} ,anchor=east}]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{vpg}] {csv/dof/10-4-2.csv};
+		  \addlegendentry{vpg}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{pg}] {csv/dof/10-4-2.csv};
+		  \addlegendentry{pg}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.4, q_{fluct}=0.2$.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymode = log, xlabel = P, ylabel = msec, , legend style={at={(0.97,0.5)} ,anchor=east}]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{vpg}] {csv/dof/10-4-3.csv};
+		  \addlegendentry{vpg}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{pg}] {csv/dof/10-4-3.csv};
+		  \addlegendentry{pg}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.4, q_{fluct}=0.3$.}
+  \end{subfigure}
+  \caption{Ejemplos para tiempo de proceso de una red con $l = 10$.}
+\end{figure}
+
+\begin{figure}
+	\captionsetup[subfigure]{justification=centering, belowskip=3mm}
+	\begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymode = log, xlabel = P, ylabel = msec, legend pos = north west]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{vpg}] {csv/dof/20-0-4.csv};
+		  \addlegendentry{vpg}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{pg}] {csv/dof/20-0-4.csv};
+		  \addlegendentry{pg}
+	  \end{axis}
+  \end{tikzpicture}
+  \label{fig:ejemplos-l-20-0-4}
+  \caption{$q_{fix}=0.0, q_{fluct}=0.4$.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymode = log, xlabel = P, ylabel = msec, legend pos = north west]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{vpg}] {csv/dof/20-1-4.csv};
+		  \addlegendentry{vpg}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{pg}] {csv/dof/20-1-4.csv};
+		  \addlegendentry{pg}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.1, q_{fluct}=0.4$.}
+  \end{subfigure}
+
+	\begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymode = log, xlabel = P, ylabel = msec, legend pos = north west]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{vpg}] {csv/dof/20-2-3.csv};
+		  \addlegendentry{vpg}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{pg}] {csv/dof/20-2-3.csv};
+		  \addlegendentry{pg}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.2, q_{fluct}=0.3$.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymode = log, xlabel = P, ylabel = msec, legend style={at={(0.97,0.5)} ,anchor=east}]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{vpg}] {csv/dof/20-3-3.csv};
+		  \addlegendentry{vpg}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{pg}] {csv/dof/20-3-3.csv};
+		  \addlegendentry{pg}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.3, q_{fluct}=0.3$.}
+  \end{subfigure}
+
+	\begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymode = log, xlabel = P, ylabel = msec, legend style={at={(0.97,0.5)} ,anchor=east}]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{vpg}] {csv/dof/20-4-2.csv};
+		  \addlegendentry{vpg}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{pg}] {csv/dof/20-4-2.csv};
+		  \addlegendentry{pg}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.4, q_{fluct}=0.2$.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymode = log, xlabel = P, ylabel = msec, legend style={at={(0.97,0.5)} ,anchor=east}]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{vpg}] {csv/dof/20-4-3.csv};
+		  \addlegendentry{vpg}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{pg}] {csv/dof/20-4-3.csv};
+		  \addlegendentry{pg}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.4, q_{fluct}=0.3$.}
+  \end{subfigure}
+  \caption{Ejemplos para tiempo de proceso de una red con $l = 20$.}
+\end{figure}
+
+\begin{figure}
+	\captionsetup[subfigure]{justification=centering, belowskip=3mm}
+	\begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymin=0, xlabel = P, ymode = log, ylabel = msec, legend pos = north west]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={colapso}{colapso}] {csv/colapso/5-0-4.csv};
+		  \addlegendentry{con}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={colapso}{no colapso}] {csv/colapso/5-0-4.csv};
+		  \addlegendentry{sin}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.0, q_{fluct}=0.4$.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymin=0, xlabel = P, ymode = log, ylabel =  msec, legend pos = north west]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={colapso}{colapso}] {csv/colapso/5-1-4.csv};
+		  \addlegendentry{con}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={colapso}{no colapso}] {csv/colapso/5-1-4.csv};
+		  \addlegendentry{sin}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.1, q_{fluct}=0.4$.}
+  \end{subfigure}
+
+	\begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymin=0, xlabel = P, ymode = log, ylabel =  msec, legend pos = north west]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={colapso}{colapso}] {csv/colapso/5-2-3.csv};
+		  \addlegendentry{con}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={colapso}{no colapso}] {csv/colapso/5-2-3.csv};
+		  \addlegendentry{sin}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.2, q_{fluct}=0.3$.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymin=0, xlabel = P, ymode = log, ylabel =  msec, legend style={at={(0.97,0.5)} ,anchor=east}]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={colapso}{colapso}] {csv/colapso/5-3-3.csv};
+		  \addlegendentry{con}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={colapso}{no colapso}] {csv/colapso/5-3-3.csv};
+		  \addlegendentry{sin}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.3, q_{fluct}=0.3$.}
+  \end{subfigure}
+
+	\begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymin=0, xlabel = P, ymode = log, ylabel = msec, legend style={at={(0.97,0.5)} ,anchor=east}]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={colapso}{colapso}] {csv/colapso/5-4-2.csv};
+		  \addlegendentry{con}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={colapso}{no colapso}] {csv/colapso/5-4-2.csv};
+		  \addlegendentry{sin}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.4, q_{fluct}=0.2$.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymin=0, xlabel = P, ymode = log, ylabel =  msec, legend style={at={(0.97,0.5)} ,anchor=east}]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={colapso}{colapso}] {csv/colapso/5-4-3.csv};
+		  \addlegendentry{con}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={colapso}{no colapso}] {csv/colapso/5-4-3.csv};
+		  \addlegendentry{sin}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.4, q_{fluct}=0.3$.}
+  \end{subfigure}
+  \caption{Ejemplos de tiempo de resolución con y sin colapso para una red con $l = 5$.}
+\end{figure}
+
+\begin{figure}
+	\captionsetup[subfigure]{justification=centering, belowskip=3mm}
+	\begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymin=0, xlabel = P, ymode = log, ylabel = msec, legend pos = north west]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={colapso}{colapso}] {csv/colapso/10-0-4.csv};
+		  \addlegendentry{con}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={colapso}{no colapso}] {csv/colapso/10-0-4.csv};
+		  \addlegendentry{sin}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.0, q_{fluct}=0.4$.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.45\textwidth}
+%  \begin{tikzpicture}
+%	  \begin{axis}[xmin=0, xmax=1, ymin=0, xlabel = P, ylabel =  msec, legend pos = north east]
+		  %\addplot+ [blue, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={colapso}{colapso}] {csv/colapso/10-1-4.csv};
+		  %\addlegendentry{con}
+		  %\addplot+ [red, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={colapso}{no colapso}] {csv/colapso/10-1-4.csv};
+		  %\addlegendentry{sin}
+%	  \end{axis}
+%  \end{tikzpicture}
+  \caption{$q_{fix}=0.1, q_{fluct}=0.4$.}
+  \end{subfigure}
+
+	\begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymin=0, xlabel = P, ymode = log, ylabel =  msec, legend pos = north west]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={colapso}{colapso}] {csv/colapso/10-2-3.csv};
+		  \addlegendentry{con}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={colapso}{no colapso}] {csv/colapso/10-2-3.csv};
+		  \addlegendentry{sin}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.2, q_{fluct}=0.3$.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymin=0, xlabel = P, ymode = log, ylabel =  msec, legend style={at={(0.97,0.5)} ,anchor=east}]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={colapso}{colapso}] {csv/colapso/10-3-3.csv};
+		  \addlegendentry{con}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={colapso}{no colapso}] {csv/colapso/10-3-3.csv};
+		  \addlegendentry{sin}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.3, q_{fluct}=0.3$.}
+  \end{subfigure}
+
+	\begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymin=0, xlabel = P, ymode = log, ylabel = msec, legend style={at={(0.97,0.5)} ,anchor=east}]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={colapso}{colapso}] {csv/colapso/10-4-2.csv};
+		  \addlegendentry{con}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={colapso}{no colapso}] {csv/colapso/10-4-2.csv};
+		  \addlegendentry{sin}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.4, q_{fluct}=0.2$.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.45\textwidth}
+%  \begin{tikzpicture}
+%	  \begin{axis}[xmin=0, xmax=1, ymin=0, xlabel = P, ylabel =  msec, legend pos = north east]
+%		  \addplot+ [blue, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={colapso}{colapso}] {csv/colapso/10-4-3.csv};
+%		  \addlegendentry{con}
+%		  \addplot+ [red, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={colapso}{no colapso}] {csv/colapso/10-4-3.csv};
+%		  \addlegendentry{sin}
+%	  \end{axis}
+%  \end{tikzpicture}
+  \caption{$q_{fix}=0.4, q_{fluct}=0.3$.}
+  \end{subfigure}
+  \caption{Ejemplos de tiempo de resolución con y sin colapso para una red con $l = 10$.}
+\end{figure}

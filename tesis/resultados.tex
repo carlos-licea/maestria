@@ -1,0 +1,390 @@
+% filtro para datos
+\pgfplotsset{
+    discard if not/.style 2 args={
+        x filter/.code={
+            \edef\tempa{\thisrow{#1}}
+            \edef\tempb{#2}
+            \ifx\tempa\tempb
+            \else
+                \def\pgfmathresult{inf}
+            \fi
+        }
+    }
+}
+
+\pgfplotsset{every axis legend/.append style={draw=none}}
+\pgfplotsset{width=6.5cm}
+
+En el capítulo \ref{metodologia} se presentaron y explicaron los métodos necesarios para la creación de redes e instancias y los algoritmos de análisis de rigidez PG y VPG. 
+
+En éste capítulo se presentan los resultados de implementar esos métodos, analizarlos para obtener sus características y compararlos para comprender sus diferencias de comportamiento.
+
+Para poder hacer los análisis se han seleccionado arbitrariamente las métricas de libertad media, análisis de tiempo de corrida y comparativas de memoria utilizada con los siguientes hiperparámetros para los algoritmos: $n=30$ para PG y, obviamente, solo un análisis para VPG. Y con las siguientes características para la creación de las redes $l=5,10,20$, un barrido de $p$ con $p=\{0,0.01,0.02 \cdots 0.99, 1.0\}$ y valores para $q_{fix}$ y $q_{fluct}$ según la  tabla \ref{table:qfix-fluct}.
+
+\renewcommand{\arraystretch}{1.3}
+\captionsetup[table]{name=Tabla}
+\begin{table}[ht]
+\centering
+\begin{tabular}{ccc}
+\hline
+& $q_{fix}$ & $q_{fluct}$ \\
+\hline
+1 & $0.0$ & $0.4$ \\
+2 & $0.1$ & $0.4$ \\
+3 & $0.2$ & $0.3$ \\
+4 & $0.3$ & $0.3$ \\
+5 & $0.4$ & $0.2$ \\
+6 & $0.4$ & $0.3$ \\
+\hline
+\end{tabular}
+\caption{Valores de $q_{fix}$ y $q_{fluct}$ utilizados.}
+\label{table:qfix-fluct}
+\end{table}
+
+\section{Equipo utilizado}
+Para la implementación de los algoritmos y la realización de la presente tesis se utilizaron los siguientes equipos y herramientas:
+
+\begin{enumerate}
+	\item Computadora portátil marca Dell XPS 15. Procesador Intel Core i7 tercera generación de 64 bits a 2.2 GHz. 12GB de memoria RAM.
+	\item Distribución Arch Linux.
+	\item Compilador GCC para el lenguaje de programación C++ con herramientas para la compilación CMake y Make.
+	\item Intérprete de lenguaje Python 3.5.1.
+	\item Controlador de versiones Git 2.7.2.
+	\item Ambiente Integrado de Desarrollo (\emph{IDE} in inglés) KDevelop 4.7.3.
+	\item Editor de texto Texmaker 4.5, compilador para \LaTeX\ \hologo{pdfLaTeX}\ 3.14159265-1.40.16 y manejador de bibliografía \BibTeX\ 0.99d.
+\end{enumerate}
+
+\section{Comparativas de grados de libertad media}
+González\parencite{Gonzalez2011} discute múltiples medidas para caracterizar las redes. De todas ellas se ha elegido la de \emph{grados de libertad media} por ser simple de implementar y muy rápida de calcular pero que a la vez presenta un panorama general de la rigidez media en toda la red. Ésta medida es útil porque si bien se espera que la distribución de \emph{pebble} cambie según se resuelve cada realización la cantidad media que se tiene para ciertos parámetros es más estable.
+
+%Los resultados para todas las diferentes configuraciones se presentan individualmente en la sección de Anexos en el capítulo \ref{anexos}. El análisis para las siguientes figuras aplica análogamente para todas las demás.
+
+Los resultados se presentan en la figura \ref{fig:comparativa-libertad}. Se puede apreciar que las las predicciones de PG y VPG son muy similares en los extremos pero la discrepancia aumenta en las regiones cercanas al punto de transición de la red. Esto es porque VPG suprime las fluctuaciones más dramáticas y por tanto subestima la cantidad de grados de libertad que hay en la red.
+
+Por otra parte, es posible apreciar que el punto de transición se da cada vez con una $p$ menor dado que la cantidad de enlaces presentes es cada vez mayor y por tanto cada vez la red es más rígida en general.
+
+Los números obtenidos coinciden con los encontrados por González\parencite{Gonzalez2011}.
+
+\begin{figure}
+	\captionsetup[subfigure]{justification=centering, belowskip=3mm}
+	\begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymin=0, xlabel = P, ylabel = F/N]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{vpg}] {csv/dof/20-0-4.csv};
+		  \addlegendentry{vpg}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{pg}] {csv/dof/20-0-4.csv};
+		  \addlegendentry{pg}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.0, q_{fluct}=0.4$.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymin=0, xlabel = P, ylabel = F/N]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{vpg}] {csv/dof/20-1-4.csv};
+		  \addlegendentry{vpg}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{pg}] {csv/dof/20-1-4.csv};
+		  \addlegendentry{pg}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.1, q_{fluct}=0.4$.}
+  \end{subfigure}
+
+	\begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymin=0, xlabel = P, ylabel = F/N]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{vpg}] {csv/dof/20-2-3.csv};
+		  \addlegendentry{vpg}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{pg}] {csv/dof/20-2-3.csv};
+		  \addlegendentry{pg}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.2, q_{fluct}=0.3$.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymin=0, xlabel = P, ylabel = F/N]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{vpg}] {csv/dof/20-3-3.csv};
+		  \addlegendentry{vpg}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{pg}] {csv/dof/20-3-3.csv};
+		  \addlegendentry{pg}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.3, q_{fluct}=0.3$.}
+  \end{subfigure}
+
+	\begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymin=0, xlabel = P, ylabel = F/N]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{vpg}] {csv/dof/20-4-2.csv};
+		  \addlegendentry{vpg}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{pg}] {csv/dof/20-4-2.csv};
+		  \addlegendentry{pg}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.4, q_{fluct}=0.2$.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymin=0, xlabel = P, ylabel = F/N]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{vpg}] {csv/dof/20-4-3.csv};
+		  \addlegendentry{vpg}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=dof, col sep=comma, discard if not={method}{pg}] {csv/dof/20-4-3.csv};
+		  \addlegendentry{pg}
+	  \end{axis}
+  \end{tikzpicture}
+  \centering
+  \caption{$q_{fix}=0.4, q_{fluct}=0.3$.}
+  \end{subfigure}
+  \caption{Ejemplos para grados de libertad medio de una red con $l = 20$. VPG se representa en lineas rojas y PG azules}
+	\label{fig:comparativa-libertad}
+\end{figure}
+
+\section{Comparativas de tiempo}
+
+Ahora por una comparativa de tiempo. Usualmente la complejidad del algoritmo VPG es linear o menor conforme se aumenta $p$, siempre y cuando $p$ se encuentra fuera de la región de transición de rigidez. Se puede apreciar en la figura \ref{fig:comparativa-tiempo} que el tiempo aumenta linealmente y que VPG se encuentra usualmente un orden de magnitud menor en ejecución que PG excepto en ciertas zonas específicas donde la complejidad de VPG aumenta enormemente y casi alcanza a PG en ciertas ocasiones.
+
+%\pgfplotsset{width=0.98\textwidth}
+%\begin{figure}
+%	\captionsetup[subfigure]{justification=centering, belowskip=3mm}
+%  \begin{tikzpicture}
+%	  \begin{axis}[xmin=0, xmax=1, xlabel = P, ylabel = msec, ymode = log, legend pos = south east]
+%		  \addplot+ [red, dashed, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{vpg}] {csv/dof/20-0-4.csv};
+%		  \addlegendentry{$vpg, q_{fix} = 0.0, q_{fluct} = 0.4$}
+%		  \addplot+ [red, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{pg}] {csv/dof/20-0-4.csv};
+%		  \addlegendentry{$pg, q_{fix} = 0.0, q_{fluct} = 0.4$}
+%
+%		  \addplot+ [blue, dashed, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{vpg}] {csv/dof/20-1-4.csv};
+%		  \addlegendentry{$vpg, q_{fix} = 0.1, q_{fluct} = 0.4$}
+%		  \addplot+ [blue, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{pg}] {csv/dof/20-1-4.csv};
+%		  \addlegendentry{$pg, q_{fix} = 0.1, q_{fluct} = 0.4$}
+%
+%		  \addplot+ [green, dashed, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{vpg}] {csv/dof/20-2-3.csv};
+%		  \addlegendentry{$vpg, q_{fix} = 0.2, q_{fluct} = 0.3$}
+%		  \addplot+ [green, solid, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{pg}] {csv/dof/20-2-3.csv};
+%		  \addlegendentry{$pg, q_{fix} = 0.2, q_{fluct} = 0.3$}
+%
+%		  \addplot+ [yellow, dashed, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{vpg}] {csv/dof/20-3-3.csv};
+%		  \addlegendentry{$vpg, q_{fix} = 0.3, q_{fluct} = 0.3$}
+%		  \addplot+ [yellow, solid, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{pg}] {csv/dof/20-3-3.csv};
+%		  \addlegendentry{$pg, q_{fix} = 0.3, q_{fluct} = 0.3$}
+%
+%		  \addplot+ [cyan, dashed, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{vpg}] {csv/dof/20-4-2.csv};
+%		  \addlegendentry{$vpg, q_{fix} = 0.4, q_{fluct} = 0.2$}
+%		  \addplot+ [cyan, solid, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{pg}] {csv/dof/20-4-2.csv};
+%		  \addlegendentry{$pg, q_{fix} = 0.4, q_{fluct} = 0.2$}
+%
+%		  \addplot+ [magenta, dashed, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{vpg}] {csv/dof/20-4-3.csv};
+%		  \addlegendentry{$vpg, q_{fix} = 0.4, q_{fluct} = 0.3$}
+%		  \addplot+ [magenta, solid, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{pg}] {csv/dof/20-4-3.csv};
+%		  \addlegendentry{$pg, q_{fix} = 0.4, q_{fluct} = 0.3$}
+%	  \end{axis}
+%  \end{tikzpicture}
+%  \caption{Comparativa de tiempo de ejecución para una red con $l=20$, VPG se representa en lineas punteadas y PG sólidas.}
+%  \label{fig:comparativa-tiempo}
+%\end{figure}
+
+\begin{figure}
+	\captionsetup[subfigure]{justification=centering, belowskip=3mm}
+	\begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+  	\begin{axis}[xmin=0, xmax=1, xlabel = P, ylabel = msec, ymode = log, legend pos = south east]
+			\addplot+ [mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{vpg}] {csv/dof/20-0-4.csv};
+		  \addlegendentry{$vpg$}
+		  \addplot+ [mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{pg}] {csv/dof/20-0-4.csv};
+		  \addlegendentry{$pg$}
+		\end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.0, q_{fluct}=0.4$.}
+  \end{subfigure}
+  \hfill
+	\begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+   \begin{axis}[xmin=0, xmax=1, xlabel = P, ylabel = msec, ymode = log, legend pos = south east]
+			\addplot+ [mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{vpg}] {csv/dof/20-1-4.csv};
+		  \addlegendentry{$vpg$}
+		  \addplot+ [mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{pg}] {csv/dof/20-1-4.csv};
+		  \addlegendentry{$pg$}
+		\end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.1, q_{fluct}=0.4$.}
+  \end{subfigure}
+
+	\begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+  	\begin{axis}[xmin=0, xmax=1, xlabel = P, ylabel = msec, ymode = log, legend pos = south east]
+			\addplot+ [mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{vpg}] {csv/dof/20-2-3.csv};
+		  \addlegendentry{$vpg$}
+		  \addplot+ [mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{pg}] {csv/dof/20-2-3.csv};
+		  \addlegendentry{$pg$}
+		\end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.2, q_{fluct}=0.3$.}
+  \end{subfigure}
+  \hfill
+	\begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+   \begin{axis}[xmin=0, xmax=1, xlabel = P, ylabel = msec, ymode = log, legend style={at={(0.97,0.5)} ,anchor=east}]
+			\addplot+ [mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{vpg}] {csv/dof/20-3-3.csv};
+		  \addlegendentry{$vpg$}
+		  \addplot+ [mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{pg}] {csv/dof/20-3-3.csv};
+		  \addlegendentry{$pg$}
+		\end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.3, q_{fluct}=0.3$.}
+  \end{subfigure}
+
+  \begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+  	\begin{axis}[xmin=0, xmax=1, xlabel = P, ylabel = msec, ymode = log, legend style={at={(0.97,0.5)} ,anchor=east}]
+			\addplot+ [mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{vpg}] {csv/dof/20-4-2.csv};
+		  \addlegendentry{$vpg$}
+		  \addplot+ [mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{pg}] {csv/dof/20-4-2.csv};
+		  \addlegendentry{$pg$}
+		\end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.4, q_{fluct}=0.2$.}
+  \end{subfigure}
+  \hfill
+	\begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+   \begin{axis}[xmin=0, xmax=1, xlabel = P, ylabel = msec, ymode = log, legend style={at={(0.97,0.5)} ,anchor=east}]
+			\addplot+ [mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{vpg}] {csv/dof/20-4-3.csv};
+		  \addlegendentry{$vpg$}
+		  \addplot+ [mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{pg}] {csv/dof/20-4-3.csv};
+		  \addlegendentry{$pg$}
+		\end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.4, q_{fluct}=0.3$.}
+  \end{subfigure}
+  
+  \caption{Comparativa de tiempo de ejecución para una red con $l=20$}
+  \label{fig:comparativa-tiempo}
+\end{figure}
+
+
+\subsection{Comparativa de VPG con y sin colapso}
+
+Comparar el tiempo de ejecución del algoritmo con y sin colapso nos permite apreciar el efecto tan profundo que éste tiene sobre la complejidad de la red.
+
+Para la siguiente prueba se utilizaron la misma redes descritas con anterioridad. Con excepción de las redes con $l=20$, el tiempo necesario para analizarlas fue tan grande que se optó por hacer el análsis con redes con $l=5, 10$.
+
+Para hacer la caracterización se resolvió 10 veces cada una de las redes barriendo sobre las $p$ y sacando un promedio de tiempo de resolución para obtener una muestra significativa.
+
+La figura \ref{fig:con-sin-colapso} muestra diferentes ejemplos representativos de ejecutar el VPG con y sin colapso en redes de diferentes tamaños. Los resultados se pueden apreciar en la figura \ref{fig:con-sin-colapso}.
+
+\begin{figure}
+	\captionsetup[subfigure]{justification=centering, belowskip=3mm}
+	\begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymode = log, xlabel = P, ylabel = msec, legend pos = north west]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{vpg}] {csv/dof/20-0-4.csv};
+		  \addlegendentry{vpg}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{pg}] {csv/dof/20-0-4.csv};
+		  \addlegendentry{pg}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$l=5, q_{fix}=0.0, q_{fluct}=0.4$.}
+  \end{subfigure}
+  \hfill
+	\begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, xlabel = P, ymode = log, ylabel =  msec, legend pos = north west]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={colapso}{colapso}] {csv/colapso/5-2-3.csv};
+		  \addlegendentry{con}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={colapso}{no colapso}] {csv/colapso/5-2-3.csv};
+		  \addlegendentry{sin}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$l=5, q_{fix}=0.2, q_{fluct}=0.3$.}
+  \end{subfigure}
+  
+	\begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, xlabel = P, ymode = log, ylabel = msec, legend pos = north west]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={colapso}{colapso}] {csv/colapso/10-0-4.csv};
+		  \addlegendentry{con}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={colapso}{no colapso}] {csv/colapso/10-0-4.csv};
+		  \addlegendentry{sin}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$l = 10, q_{fix}=0.0, q_{fluct}=0.4$.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, xlabel = P, ymode = log, ylabel =  msec, legend style={at={(0.97,0.5)} ,anchor=east}]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={colapso}{colapso}] {csv/colapso/10-3-3.csv};
+		  \addlegendentry{con}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={colapso}{no colapso}] {csv/colapso/10-3-3.csv};
+		  \addlegendentry{sin}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.3, q_{fluct}=0.3$.}
+  \end{subfigure}
+  \caption{Comparativa del tiempo de resolución de VPG con y sin colapso.}
+  \label{fig:con-sin-colapso}
+\end{figure}
+
+Es fácil apreciar la enorme diferencia que tiene el aplica colapso en la red. En casos triviales como el que se presenta en la subfigura (a) en un principio el hacer el colapso ralentiza un poco la resolución de la red para $p$ cercanas a cero.  Más adelante es fácil ver que el colapso provee una mejora de cuando menos una orden de magnitud. En la subfigura (b) se puede apreciar un caso un poco más complicado  pero que inmediatamente demuestra la increíble mejora que tiene el algoritmo al implementar el colapso, desde 1 orden de magnitud hasta 2 órdenes en el peor de los casos. En la subfigura (c) se aprecia de nuevo la enorme mejora que presenta el colapso. Por último en la subfigura (d) se demuestra una mejora de entre 2 y 3 órdenes de magnitud en todos los casos.
+
+Es interesante recalcar lo errático del comportamiento en el que valores de $p$ muy cercanos muestran tiempos de resolución muy dispares. 
+
+La razón de la diferencia entre aplicar colapso o no es simple: una vez que se ha determinado que una sección es rígida se puede utilizar ese conocimiento guardándolo en la red al colapsarla. Si no se aplica el colapso este hecho se tiene que descubrir una y otra vez recorriendo buena parte de los los nodos colapsados hasta fallar la búsqueda. Mientras que al colapsar solamente se requiere recorrer dos nodos para determinar si existen o no \emph{pebble} disponibles en la subsección rígida.
+
+\subsection{Comportamiento en notación O-grande}
+
+Otro ejemplo interesante a observar es cuando PG tiene un tiempo de ejecución menor que VPG. La figura \ref{fig:pg-mas-rapido-vpg} presenta este caso. Un excelente ejemplo del comportamiento de $O(n)$ que solamente garantiza cómo crece una función mas no que siempre sea mejor en todo caso. En la figura se puede apreciar que para valores pequeños de $n$ PG es más rápido que VPG pero que VPG crece esencialemnte linear mientras que PG crece más rápido. Es fácil ver por qué es el caso: VPG siempre tiene la misma cantidad de enlaces presentes por lo que para valores pequeños de $p$ en PG la mayoría de los enlaces no están presentes mientras que en VPG siempre están presentes aunque con un costo menor.
+
+\pgfplotsset{width=6.5cm}
+\begin{figure}[ht]
+	\captionsetup[subfigure]{justification=centering, belowskip=3mm}
+	\begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymode = log, xlabel = P, ylabel = msec, legend pos = north west]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{vpg}] {csv/dof/10-0-4.csv};
+		  \addlegendentry{vpg}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{pg}] {csv/dof/10-0-4.csv};
+		  \addlegendentry{pg}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.0, q_{fluct}=0.4, l=10$.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.45\textwidth}
+  \begin{tikzpicture}
+	  \begin{axis}[xmin=0, xmax=1, ymode = log, xlabel = P, ylabel = msec, legend pos = north west]
+		  \addplot+ [blue, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{vpg}] {csv/dof/20-0-4.csv};
+		  \addlegendentry{vpg}
+		  \addplot+ [red, mark size=.1mm] table [x=p, y=time, col sep=comma, discard if not={method}{pg}] {csv/dof/20-0-4.csv};
+		  \addlegendentry{pg}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{$q_{fix}=0.0, q_{fluct}=0.4, l=20$.}
+  \end{subfigure}
+  \caption{Ejemplos de redes en los que para valores pequeños de $p$ PG es más rápido que VPG}
+  \label{fig:pg-mas-rapido-vpg}
+\end{figure}
+
+\section{Comparativas en memoria}
+Es bien sabido que el uso de las estructuras de datos que manejen y representen eficientemente los datos utilizados por el problema específico permite reducir enormemente la cantidad de memoria consumida para resolver el problema. En el problema actual, el utilizar una estructura de datos especializada para la representación de matrices dispersas (sección \ref{matrices-dispersas}) cómo lo es la que provee la biblioteca \emph{Eigen} permite reducir el consumo de memoria, agilizar los cálculos al mejorar la localidad del programa y simplemente hacer tratables problemas grandes. 
+
+La figura \ref{fig:uso-memoria} presenta el uso de memoria antes de realizar el cambio de una representación ingenua por la especializada en matrices dispersas. Nótese que la escala es logarítmica y que, de hecho, para el caso $n=50$ el consumo de memoria asciende a más de 31.25 GB. Esto se puede observar simplemente dado que el consumo crece con la expresión $O(n^2)=n^2$ y haciendo en práctica que cualquier problema de tamaño $n \geq 20$ fuera intratable con una computadora de uso personal.
+
+\begin{figure}[h]
+	\centering
+	\pgfplotsset{width=8cm}
+  \begin{tikzpicture}
+	  \begin{axis}[xlabel = n, ylabel = kB, ymode = log, legend pos = north west]
+		  \addplot+ [blue, mark size=.1mm] table [x=n, y=disperse, col sep=comma] {csv/memory.csv};
+		  \addlegendentry{dispersa}
+		  \addplot+ [red, mark size=.1mm] table [x=n, y=naive, col sep=comma] {csv/memory.csv};
+		  \addlegendentry{ingenua}
+	  \end{axis}
+  \end{tikzpicture}
+  \caption{Comparativa en el uso de memoria.}
+  \label{fig:uso-memoria}
+\end{figure}
